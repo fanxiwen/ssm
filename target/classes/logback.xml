@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds" debug="false" packingData="false">
+
+	<variable name="PATTERN" value="%date ${CONTEXT_NAME} [%thread] %-5level %logger{36} -%msg%n" />
+	<variable name="ERROR_PATTERN" value="%date ${CONTEXT_NAME} [%file:%line] [%thread] %level %logger{36} -%msg ${HOSTNAME}%n" />
+	<variable name="FILE_PATH" value="D:/log/logback/%d{yyyy-MM-dd}" />
+	
+	<contextName>logback</contextName>
+
+<!-- 滚动输出日志 -->
+	<appender name="rollLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>${FILE_PATH}/log.log</fileNamePattern>
+		<maxHistory>180</maxHistory> 
+	  </rollingPolicy>
+	  <append>true</append>
+	  <prudent>false</prudent>
+	  <!-- 输出INFO级别及以上的日志 -->
+	  <filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+	    <level>INFO</level>   
+	  </filter> 
+	  <encoder>
+	  	<pattern>${PATTERN}</pattern>
+	  </encoder>
+	</appender>
+	
+<!-- 滚动输出错误信息 -->
+	<appender name="rollError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>${FILE_PATH}/error.log</fileNamePattern>
+		<maxHistory>180</maxHistory>
+	  </rollingPolicy>
+	  <append>true</append>
+	  <prudent>false</prudent>
+	  <!-- 输出WARN及以上级别的日志 -->
+	  <filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+	    <level>WARN</level>   
+	  </filter> 
+	  <encoder>
+	  	<pattern>${ERROR_PATTERN}</pattern>
+	  </encoder>
+	</appender>
+	
+<!-- 滚动输出SQL -->
+	<appender name="rollSql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>${FILE_PATH}/sql.log</fileNamePattern>
+		<maxHistory>180</maxHistory> 
+	  </rollingPolicy>
+	  <append>true</append>
+	  <prudent>false</prudent>
+	  <encoder>
+	  	<pattern>${PATTERN}</pattern>
+	  </encoder>
+	</appender>
+	
+	<!-- 控制台日志 -->
+	<appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+	  <filter class="ch.qos.logback.core.filter.EvaluatorFilter">         
+        <evaluator>
+          <expression>return level &lt; ERROR;</expression>   
+        </evaluator>   
+        <OnMatch>ACCEPT </OnMatch>  
+        <OnMismatch>DENY</OnMismatch>  
+      </filter>   
+	  <target>System.out</target>
+	  <encoder>
+	  	<pattern>${PATTERN}</pattern>
+	  </encoder>
+	</appender>
+	
+	<!-- 控制台错误日志 -->
+	<appender name="consoleError" class="ch.qos.logback.core.ConsoleAppender">
+      <filter class="ch.qos.logback.classic.filter.LevelFilter">   
+        <level>ERROR</level>   
+        <onMatch>ACCEPT</onMatch>   
+        <onMismatch>DENY</onMismatch>   
+      </filter>   
+      
+	  <target>System.err</target>
+	  <encoder>
+	    <pattern>${ERROR_PATTERN}</pattern>
+	  </encoder>
+	</appender>
+	
+	<root level="info">
+		<appender-ref ref="consoleError"/>
+		<appender-ref ref="consoleLog"/>
+		<appender-ref ref="rollLog"/>
+		<appender-ref ref="rollError"/>
+<!-- 		<appender-ref ref="rollSql"/> -->
+	</root>
+</configuration>
