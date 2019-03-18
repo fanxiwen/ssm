@@ -15,6 +15,11 @@
     <param-value>classPath:applicationContext.xml</param-value>
   </context-param>
   
+  <!-- 防止Spring内存溢出监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+  
   <!-- 编码过滤器 -->
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
