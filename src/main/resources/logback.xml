@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds" debug="false" packingData="false">
 
-	<variable name="PATTERN" value="%date ${CONTEXT_NAME} [%thread] %-5level %logger{36} -%msg%n" />
-	<variable name="ERROR_PATTERN" value="%date ${CONTEXT_NAME} [%file:%line] [%thread] %level %logger{36} -%msg ${HOSTNAME}%n" />
-	<variable name="FILE_PATH" value="D:/log/logback/%d{yyyy-MM-dd}" />
+	<contextName>ssm</contextName>
 	
-	<contextName>logback</contextName>
+	<variable name="DB_PATTERN" value="%date ${CONTEXT_NAME} [%thread] -%msg" />
+	<variable name="PATTERN" value="%date ${CONTEXT_NAME} [%thread] %-5level %logger -%msg%n" />
+	<variable name="ERROR_PATTERN" value="%date ${CONTEXT_NAME} [%file:%line] [%thread] %level %logger -%msg ${HOSTNAME}%n" />
+	<variable name="FILE_PATH" value="D:/log/${CONTEXT_NAME}/%d{yyyy-MM-dd}" />
+	
 
 <!-- 滚动输出日志 -->
 	<appender name="rollLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -83,11 +85,30 @@
 	  </encoder>
 	</appender>
 	
-	<root level="info">
-		<appender-ref ref="consoleError"/>
-		<appender-ref ref="consoleLog"/>
+	<!-- 日志到数据库 -->
+	<appender name="database" class="ch.qos.logback.classic.db.DBAppender">
+	  <filter class="ch.qos.logback.classic.filter.LevelFilter">
+	    <level>INFO</level>
+	    <onMatch>ACCEPT</onMatch>
+	    <onMismatch>DENY</onMismatch>
+	  </filter>
+	  
+	  <encoder>
+	    <pattern>${DB_PATTERN}</pattern>
+	  </encoder>
+	</appender>
+	
+	<!-- SQL日志 name是bean的包路经-->
+	<logger name="priv.general.system.bean"  level="DEBUG" additivity="false">
+	  <appender-ref ref="rollSql"/>
+	</logger>
+	
+	<logger name="priv.general.system.log.Logger" level="INFO" additivity="false">
 		<appender-ref ref="rollLog"/>
 		<appender-ref ref="rollError"/>
-<!-- 		<appender-ref ref="rollSql"/> -->
-	</root>
+	  <appender-ref ref="consoleError"/>
+		<appender-ref ref="consoleLog"/>
+	</logger>
+	
+	<root level="OFF"></root>
 </configuration>
