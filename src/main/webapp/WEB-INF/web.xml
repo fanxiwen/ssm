@@ -38,6 +38,28 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <!-- 登录过滤器 -->
+  <filter>
+    <filter-name>loginRequiredFilter</filter-name>
+    <filter-class>priv.general.utils.filter.LoginRequiredFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginRequiredFilter</filter-name>
+    <!-- /*可以正常过滤请求，但是静态文件也会被过滤，暂时不用 -->
+<!--     <url-pattern>/*</url-pattern> -->
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+  
+  <!-- 权限过滤器 -->  
+  <filter>
+    <filter-name>authorityRequiredFilter</filter-name>
+    <filter-class>priv.general.utils.filter.AuthorityRequiredFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>authorityRequiredFilter</filter-name>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+  
   <!-- 前端控制器 -->
   <servlet>
     <servlet-name>dispatcher</servlet-name>
@@ -63,4 +85,16 @@
   	<welcome-file>index.html</welcome-file>
   </welcome-file-list>
   
+  <error-page>
+    <error-code>404</error-code>
+    <location>/server/error/404.html</location>
+  </error-page>
+  <error-page>
+    <exception-type>500</exception-type>
+    <location>/server/error/error.html</location>
+  </error-page>
+  <error-page>
+    <exception-type>ServerException</exception-type>
+    <location>/server/error/error.html</location>
+  </error-page>
 </web-app>

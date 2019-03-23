@@ -13,7 +13,7 @@ public class UserDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public User selectOne(User u) {
-		return sqlSessionTemplate.selectOne("selectOne", u.getUsername());
+		return sqlSessionTemplate.selectOne("priv.general.system.bean.base.User.selectOne", u.getUsername());
 	}
 	
 }

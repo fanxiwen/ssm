@@ -1,4 +1,4 @@
-package priv.general.system.log;
+package priv.general.utils.log;
 
 import org.slf4j.LoggerFactory;
 

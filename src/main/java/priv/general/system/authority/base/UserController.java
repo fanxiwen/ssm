@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.general.system.bean.base.User;
-import priv.general.system.log.Logger;
 import priv.general.system.server.base.service.UserService;
+import priv.general.utils.log.Logger;
 
 @Controller
 @RequestMapping("user")
@@ -20,7 +20,7 @@ public class UserController extends Logger{
 	private UserService userService;
 	
 	@ResponseBody
-	@RequestMapping("login.do")
+	@RequestMapping("/login.do")
 	public String login(HttpServletRequest request, HttpServletResponse response){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");

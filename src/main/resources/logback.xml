@@ -86,7 +86,7 @@
 	</appender>
 	
 	<!-- 日志到数据库 -->
-	<appender name="database" class="ch.qos.logback.classic.db.DBAppender">
+	<appender name="database" class="priv.general.utils.log.DBAppender">
 	  <filter class="ch.qos.logback.classic.filter.LevelFilter">
 	    <level>INFO</level>
 	    <onMatch>ACCEPT</onMatch>

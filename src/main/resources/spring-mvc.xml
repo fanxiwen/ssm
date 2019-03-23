@@ -12,7 +12,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
   
 <!-- 自动扫描priv.general.system包下的Java类 ，并注册为bean-->
-  <context:component-scan base-package="priv.general.system" />
+  <context:component-scan base-package="priv.general.system.authority" />
   
   <mvc:default-servlet-handler/>
   
@@ -25,9 +25,11 @@
   </mvc:annotation-driven>
   
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/WEB-INF/jsp/" />
-    <property name="suffix" value=".jsp" />
+    <property name="prefix" value="/server/error" />
+    <property name="suffix" value=".html" />
   </bean>
   
+  <!-- 全局异常处理 -->
+  <bean class="priv.general.utils.exception.ServerExcptionResolve"/>
   
 </beans>

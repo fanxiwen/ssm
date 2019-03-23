@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>登录</title>
+  <script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="resources/js/utils.js"></script>  
+</head>
+<body style="position: absolute;  top: 0; left: 0; bottom: 0; right: 0;">
+  <div style="text-align: center;">
+    <div style="padding: 10px">
+	  <span>账号：</span>
+	  <input id="username" name="username" placeholder="请输入账号....">
+    </div>
+    <div style="padding: 10px">
+      <span>密码：</span>
+	  <input id="password" name="password" type="password" placeholder="请输入密码....">
+    </div>
+    <div style="padding: 10px">
+      <button id="login" style="">登陆</button>
+      <button id="registration">注册</button>
+    </div>
+  </div>
+  
+  
+<script type="text/javascript">
+// 	$(function() {
+// 		login();
+// 	})
+//     function login() {
+		$("#login").on("click" ,function(){
+			Ajax(true, "http://127.0.0.1:8080/ssm/user/login.do"
+					, {username : $("#username").val(), password : $("#password").val()},
+			function(result){
+				if(result == "SUCCESS") {
+					jump("server/index.html");
+				} else {
+					alert(result)
+				}
+			})
+		})
+// 	}
+</script>
+  
+</body>
+
+
+</html>

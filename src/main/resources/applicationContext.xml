@@ -12,14 +12,15 @@
        http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
-       
+  
+  <context:component-scan base-package="priv.general.system" />
   <context:property-placeholder location="classpath:jdbc.properties" />
   <!-- 数据源 -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-    <property name="username" value="root"/>
-    <property name="password" value="mysql"/>
-    <property name="url" value="${url}"/>
+    <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+    <property name="url" value="${jdbc.url}"/>
   </bean>
   
   <!-- sqlsessionFactory -->

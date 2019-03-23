@@ -1,6 +1,10 @@
 package priv.general.system.bean.base;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+
+	private static final long serialVersionUID = 1442932676055918117L;
 
 	private String id;
 	
