@@ -13,6 +13,7 @@
   
 <!-- 自动扫描priv.general.system包下的Java类 ，并注册为bean-->
   <context:component-scan base-package="priv.general.system.authority" />
+  <context:component-scan base-package="priv.general.system.login" />
   
   <mvc:default-servlet-handler/>
   

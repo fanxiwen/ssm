@@ -29,7 +29,7 @@
 // 	})
 //     function login() {
 		$("#login").on("click" ,function(){
-			Ajax(true, "http://127.0.0.1:8080/ssm/user/login.do"
+			Ajax(true, "http://127.0.0.1:8080/ssm/login/login"
 					, {username : $("#username").val(), password : $("#password").val()},
 			function(result){
 				if(result == "SUCCESS") {

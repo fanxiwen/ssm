@@ -1,8 +1,9 @@
-package priv.general.system.authority.base;
+package priv.general.system.login;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,24 +11,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.general.system.bean.base.User;
 import priv.general.system.server.base.service.UserService;
-import priv.general.utils.log.Logger;
 
 @Controller
-@RequestMapping("user")
-public class UserController extends Logger{
+@RequestMapping("login")
+public class loginController {
 
 	@Resource
-	private UserService userService;
+	public UserService userService;
 	
 	@ResponseBody
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request, HttpServletResponse response){
+	public String login(HttpServletRequest request, HttpServletResponse response) {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		return userService.login(user);
+		HttpSession session = request.getSession();
+		
+		String status = userService.login(user);
+		if("SUCCESS".equals(status)) {
+		    session.setAttribute("user", user);	
+		}
+		return status;
+		
 	}
-	
 }

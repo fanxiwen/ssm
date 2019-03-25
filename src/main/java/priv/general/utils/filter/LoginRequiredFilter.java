@@ -34,7 +34,7 @@ public class LoginRequiredFilter implements Filter{
 		String url = req.getRequestURI();
 		
 		if(user != null || (user == null && (url.endsWith("login.do") || url.endsWith("login") 
-				|| url.endsWith("login.html") || url.endsWith("ssm/indx.html") || url.endsWith("ssm/")))) {
+				|| url.endsWith("login.html") || url.endsWith("/ssm/") || url.endsWith("ssm/index.html")))) {
 			chain.doFilter(request, response);
 		} else {
 			//重定向到登陆页面
